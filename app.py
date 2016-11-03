@@ -18,14 +18,14 @@ class Application(tornado.web.Application):
     def __init__(self):
         handlers = [(r"/", IndexView),]
 
-    settings = dict(
-    template_path=os.path.join(os.path.dirname(__file__), "templates"),
-    static_path=os.path.join(os.path.dirname(__file__), "static"),
-    debug=True,
-    )
+        settings = dict(
+        template_path=os.path.join(os.path.dirname(__file__), "templates"),
+        static_path=os.path.join(os.path.dirname(__file__), "static"),
+        debug=True,
+        )
 
-    self.db = torndb.Connection("localhost", "hi_group", user='root', password='root')
-    tornado.web.Application.__init__(self, handlers, **settings)
+        self.db = torndb.Connection("localhost", "hi_group", user='root', password='root')
+        tornado.web.Application.__init__(self, handlers, **settings)
 
 def main():
     tornado.options.parse_command_line()
