@@ -9,19 +9,17 @@ import tornado.ioloop
 import tornado.options
 import tornado.web
 import torndb
+from urls import handlers
 from tornado.options import define, options
-from views.index import IndexView
 
 define("port", default=8002, help="run on the given port", type=int)
 
 class Application(tornado.web.Application):
     def __init__(self):
-        handlers = [(r"/", IndexView),]
-
         settings = dict(
-        template_path=os.path.join(os.path.dirname(__file__), "templates"),
-        static_path=os.path.join(os.path.dirname(__file__), "static"),
-        debug=True,
+            template_path=os.path.join(os.path.dirname(__file__), "templates"),
+            static_path=os.path.join(os.path.dirname(__file__), "static"),
+            debug=True,
         )
 
         self.db = torndb.Connection("localhost", "hi_group", user='root', password='root')
