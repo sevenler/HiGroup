@@ -1,6 +1,9 @@
 from tornado.web import url
-from views import index
+from views import group
 
 handlers = [
-    url(r"/", index.IndexView, name='index'),
+    url(r"/", group.AllView, name='index'),
+    url(r"/group/create", group.CreateView, name='group.create'),
+    url(r"/group/join", group.JoinView, name='group.create'),
+    url(r"/group/mine", group.MineView, name='group.mine'),
 ]

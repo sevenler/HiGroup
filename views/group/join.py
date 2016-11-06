@@ -1,21 +1,14 @@
 from base import BaseView
+from core.logic import Group
 
 
-class IndexView(BaseView):
-    def get(self):
-        self.get_current_user()
-        self.render("index.html",)
+class JoinView(BaseView):
+    def post(self, group_id):
+        me = self.get_currenct_user()
+        group = Group(group_id)
 
-    def post(self):
-        import time
-        title = self.get_argument('title', None)
-        content = self.get_argument('content', None)
-        blog = dict()
-        if title and content:
-            blog['title'] = title
-            blog['content'] = content
-            blog['date'] = int(time.time())
-            coll = self.application.db.blog
-            coll.insert(blog)
-            self.redirect('/blog')
-        self.redirect('/')
+        message = '加入失败，请重试！'
+        if group.join(me) == True:
+            message = '加入小组%s成功'%group.name
+
+        self.message(message, '/')

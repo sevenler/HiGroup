@@ -1,5 +1,5 @@
 import tornado
-from core.models import session, User
+from core.logic import User
 
 
 class BaseView(tornado.web.RequestHandler):
@@ -13,5 +13,7 @@ class BaseView(tornado.web.RequestHandler):
         user_id = 1
         if not user_id:
             return None
+        return User.filter(id=user_id)
 
-        return self.session.query(User).filter_by(id=user_id).first()
+    def message(self, message='', redirect_to='/'):
+        self.render('message.html', {'message': message, 'redirect_to': redirect_to})

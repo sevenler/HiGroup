@@ -20,9 +20,31 @@
     
     添加SQLAlchemy ORM文件(core/models/*), 调试通过
 
-    TODO 完成业务
-        
-        定义Group Model
 
-        完善views/group
+####定义Model & 添加Logic & 添加Views(2016.11.5)
+
+    models/user/User  用户表 
+    models/group/Group  小组
+    models/group/GroupPartner  小组成员
+    models/group/GroupCheckIn  小组打卡
+
+    添加core/logic
+    logic层是对model层的封装，并对views提供操作方法，这是一个典型的MVC设计，业务逻辑都会放到logic层，同时事务、缓存、日志都会放到这里。
+
+    Group的用法：
+        from core.logic import Group
+
+        group = Group.create(title='Join us',  description='join us please')
+        group_list = Group.filter(id=0)
+        group = group_list[0]
+        me = get_currenct_user()
+        group.join(me)
+        group.checkin(me)
+
+    添加views/*
+        views 调用logic作增删改查
+
+
+####调试TODO
+
     
