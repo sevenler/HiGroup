@@ -1,8 +1,10 @@
+#!/usr/bin/env python
+# encoding=utf8
 from base import BaseObject
 from core.models import session
 from core.models import Group as GroupModel
 from core.models import GroupPartner as GroupPartnerModel
-from core.models import GroupCheckin as GroupCheckinModel
+from core.models import GroupCheckIn as GroupCheckInModel
 
 
 class Group(BaseObject):
@@ -33,7 +35,7 @@ class Group(BaseObject):
         return partner_map_list
 
     def check_in_list(self):
-        check_in_model_list = session.query(GroupCheckinModel).filter_by(group_id = self._pk).all()
+        check_in_model_list = session.query(GroupCheckInModel).filter_by(group_id = self._pk).all()
         check_in_map = {}
         #是否显示连续打卡天数？还是显示累计打卡天数
         for item in check_in_model_list:
@@ -54,7 +56,7 @@ class Group(BaseObject):
             return True
 
     def check_in(self, user):
-        gci = GroupCheckinModel()
+        gci = GroupCheckInModel()
         gci.user_id = user.id
         gci.group_id = self._pk
         return True

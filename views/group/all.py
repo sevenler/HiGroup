@@ -1,4 +1,7 @@
-from base import BaseView
+#!/usr/bin/env python
+# encoding=utf8
+from views.base import BaseView
+from core.logic import Group
 
 
 class AllView(BaseView):
@@ -7,4 +10,4 @@ class AllView(BaseView):
         group_map_list = []
         for group in all_group_obj:
             group_map_list.append(group.info())
-        self.render("index.html", group_map_list)
+        self.render("index.html", groups=group_map_list)

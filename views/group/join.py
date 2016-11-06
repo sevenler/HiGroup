@@ -1,4 +1,6 @@
-from base import BaseView
+#!/usr/bin/env python
+# encoding=utf8
+from views.base import BaseView
 from core.logic import Group
 
 

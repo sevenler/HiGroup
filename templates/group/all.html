@@ -1,1 +1,7 @@
-hello, this is index page
+
+{% for group in groups %}
+    {{ group.title }}
+    {{ group.description }}
+    {{ group.joined_partner_number }} / {{ group.max_partner_number }}
+    {{ group.created_user_name }}
+{% end %}

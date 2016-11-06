@@ -1,12 +1,9 @@
-from base import BaseObject
-
-
-class BaseObject:
-    def __init__(self):
+class BaseObject(object):
+    def __init__(self, pk):
         self._pk = pk
 
     @property
-    def id(cls):
+    def id(self):
         return self._pk
 
     @classmethod

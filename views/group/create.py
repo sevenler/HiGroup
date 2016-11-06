@@ -1,5 +1,7 @@
-from base import BaseView
-from core import Group
+#!/usr/bin/env python
+# encoding=utf8
+from views.base import BaseView
+from core.logic import Group
 
 
 class CreateView(BaseView):
