@@ -12,7 +12,6 @@ Base = declarative_base()
 def install_model(engine):
     """Sync model into database, Invoked from application
     """
-    Base = declarative_base()
     Base.metadata.create_all(bind=engine)
     print "Models Installed"
 

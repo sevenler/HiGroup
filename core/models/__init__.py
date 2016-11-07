@@ -1,6 +1,6 @@
+from core.models.base import install_model
 from core.models.user import *
 from core.models.group import *
-from core.models.base import install_model
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from tornado.options import define, options
@@ -16,4 +16,4 @@ engine = create_engine(
 install_model(engine)
 session = scoped_session(sessionmaker(bind=engine))
 
-__all__ = [session]
+__all__ = [engine, session]
