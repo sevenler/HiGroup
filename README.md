@@ -48,3 +48,13 @@
 ####Finish Debug(2016.11.7)
 
     
+
+### Run
+
+    pip install requirement/prod.txt
+
+    python app.py
+
+    mysql -uuser hi_group < mock.sql
+
+    chrome http://localhost:8002/
