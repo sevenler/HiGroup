@@ -6,6 +6,11 @@ class BaseObject(object):
     def id(self):
         return self._pk
 
+    def info(self):
+        return {
+            'id': self._pk
+        }
+
     @classmethod
     def create(cls, **kwargs):
         pass

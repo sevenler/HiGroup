@@ -10,4 +10,4 @@ class AllView(BaseView):
         group_map_list = []
         for group in all_group_obj:
             group_map_list.append(group.info())
-        self.render("index.html", groups=group_map_list)
+        self.render("group/all.html", groups=group_map_list)

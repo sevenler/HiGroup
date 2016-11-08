@@ -12,18 +12,34 @@ class Group(BaseObject):
         super(Group, self).__init__(pk)
         self._model = model
 
+    def _confirm_model(self):
+        if self._model == None:
+            self._model = session.query(GroupModel).filter_by(id=self.id).first()
+
     def info(self):
         super_info = super(Group, self).info()
+
+        self._confirm_model()
         model = self._model
-        super_info.extend({
-            'name': model.name,
+        super_info.update({
+            'title': model.title,
             'description': model.description,
             'max_partner_number': model.max_partner_number,
-            'joined_partner_number': model.max_partner_number,
+            'joined_partner_number': model.joined_partner_number,
             'created_user_id': model.created_user_id,
             'created_time': model.created_time,
         })
         return super_info
+
+    @property
+    def joined_partner_number(self):
+        self._confirm_model()
+        return self._model.joined_partner_number
+
+    @property
+    def title(self):
+        self._confirm_model()
+        return self._model.title
 
     def partners(self):
         partner_model_list = session.query(GroupPartnerModel).filter_by(group_id = self._pk).all()
@@ -48,9 +64,11 @@ class Group(BaseObject):
         if exsit_partner != None:
             gp = GroupPartnerModel()
             gp.user_id = user.id
-            gp.save()
+            gp.group_id = self.id
+            session.add(gp)
+            session.flush()
 
-            self._update(self._model.joined_partner_number + 1)
+            self._update(joined_partner_number=self.joined_partner_number + 1)
             return True
         else:
             return True
@@ -66,23 +84,29 @@ class Group(BaseObject):
         if kwargs.__contains__('joined_partner_number'):
             joined_partner_number = kwargs.get('joined_partner_number', 0)
             model.joined_partner_nuber = joined_partner_number
-            model.save()
+            session.add(model)
+            session.flush()
 
     @classmethod
     def create(cls, **kwargs):
-        name = kwargs['name']
+        title = kwargs['title']
         description = kwargs.get('description', '')
         max_partner_number = kwargs.get('max_partner_number', 10)
         user_level_expectation = kwargs.get('user_level_expectation', None)
         joined_partner_number = kwargs.get('joined_partner_number', 0)
+        created_user_id = kwargs.get('created_user_id', 0)
 
         model = GroupModel()
-        model.name = name
+        model.title = title
         model.max_partner_number = max_partner_number
         model.description = description
         model.user_level_expectation = user_level_expectation
         model.joined_partner_nuber = joined_partner_number
-        model.save()
+        model.created_user_id = created_user_id
+
+        session.add(model)
+        session.flush()
+        return cls(model.id, model=model)
 
     @classmethod
     def filter(cls, **kwargs):

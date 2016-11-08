@@ -1,7 +1,18 @@
 
+<a href='/group/mine'> my group </a>
+    </br>
+<a href='/group/create'> create </a>
+    </br>
+
 {% for group in groups %}
-    {{ group.title }}
-    {{ group.description }}
-    {{ group.joined_partner_number }} / {{ group.max_partner_number }}
-    {{ group.created_user_name }}
+title: {{ group['title'] }}
+    desc: {{ group['description'] }}
+    joined/max: {{ group['joined_partner_number'] }} / {{ group['max_partner_number'] }}
+    partners: {{ group['created_user_id'] }}
+
+    <form method='post' action='/group/{{ group['id'] }}/join'>
+        <input type="submit" value="Join">
+    </form>
+
+    </br>
 {% end %}

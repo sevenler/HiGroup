@@ -1,7 +1,5 @@
-from datetime import datetime
 from sqlalchemy import (
     Column,
-    DateTime,
     Integer,
     String,
     Text,
@@ -11,7 +9,7 @@ from sqlalchemy import (
 from base import BaseModel
 
 class Group(BaseModel):
-    __tablename__ = 'group'
+    __tablename__ = 'groups'
 
     title = Column(String(100))
     description = Column(Text())
@@ -23,12 +21,12 @@ class Group(BaseModel):
 class GroupPartner(BaseModel):
     __tablename__= 'group_partner'
 
-    group_id = Column(Integer(), ForeignKey('group.id'), nullable=False)
+    group_id = Column(Integer(), ForeignKey('groups.id'), nullable=False)
     user_id = Column(Integer(), ForeignKey('user.id'), nullable=False)
 
 class GroupCheckIn(BaseModel):
     __tablename__ = 'group_check_in'
 
-    group_id = Column(Integer(), ForeignKey('group.id'), nullable=False)
+    group_id = Column(Integer(), ForeignKey('groups.id'), nullable=False)
     user_id = Column(Integer(), ForeignKey('user.id'), nullable=False)
-    checkin_datetime = Column(DateTime(), default=datetime.now)
+    checkin_date = Column(String(8))
