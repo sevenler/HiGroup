@@ -12,7 +12,8 @@ class User(BaseObject):
         super_info = super(User, self).info()
         model = self._model
         super_info.update({
-            'name': model.name
+            'name': model.name,
+            'avatar': model.avatar_url
         })
         return super_info
 

@@ -10,6 +10,8 @@ title: {{ group['title'] }}
     joined/max: {{ group['joined_partner_number'] }} / {{ group['max_partner_number'] }}
     partners: {{ group['created_user_id'] }}
 
+    <a href='/group/{{ group['id'] }}/'> detail </a>
+
     <form method='post' action='/group/{{ group['id'] }}/join'>
         <input type="submit" value="Join">
     </form>
