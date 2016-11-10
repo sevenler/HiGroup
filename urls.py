@@ -6,5 +6,6 @@ handlers = [
     url(r"/group/create", group.CreateView, name='group.create'),
     url(r"/group/(?P<group_id>\w+)/join", group.JoinView, name='group.join'),
     url(r"/group/(?P<group_id>\w+)/", group.DetailView, name='group.detail'),
+    url(r"/group/(?P<group_id>\w+)/checkin", group.CheckInView, name='group.checkin'),
     url(r"/group/mine", group.MineView, name='group.mine'),
 ]
