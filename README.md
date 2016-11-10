@@ -53,6 +53,8 @@
 
     pip install requirement/prod.txt
 
+    编辑 HiGroup/core/models/__init__.py 中的 db config string
+    
     python app.py
 
     mysql -uuser hi_group < mock.sql
