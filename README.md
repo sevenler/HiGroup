@@ -20,7 +20,8 @@
 
 
     关于core/logic
-    logic层是对core/model层的封装，并对views提供操作方法，这是一个典型的MVC设计，业务逻辑都会放到logic层，同时事务、缓存、业务操作日志都会放到这里。
+    logic层是对core/model层的封装，并对views提供操作方法，
+    这是一个典型的MVC设计，业务逻辑都会放到logic层，同时事务、缓存、业务操作日志都会放到这里。
 
     logic.Group 的典型用法:
 
@@ -56,7 +57,8 @@
     views和api统一调用core.logic的方法来达到业务在website和api中保持一致
     同时，常见的做法也会在 core.logic 再封装一层conext，每个session会对应实例化一个context
     views和api通过context来调用所有的业务操作，在context的内部有用户登录信息、权限校验、统计等等。
-    如果并发提高，需要进行RPC、微服务等架构调整的话，context的设计可以作为一个服务的接口，只需要去重构context内部去作分布式的调用就好，views、api一点代码都不需要改.
+    如果并发提高，需要进行RPC、微服务等架构调整的话，context的设计可以作为一个服务的接口，
+    只需要去重构context内部去作分布式的调用就好，views、api一点代码都不需要改.
 
 
     logic.logic 的典型内部写法：
