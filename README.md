@@ -14,6 +14,7 @@
         templates - 模板文件
         views - request handler
         api - api handler 
+        config.py - config
         app.py - 启动文件
         urls.py - 路由
 
@@ -35,11 +36,27 @@
 
     views.handler 的典型写法：
         
+        from core.logic import Group
         def post(self, group_id):
             me = self.get_current_user()
             group = Group(group_id)
             group.join(me)
             return redirect('/group/%s/'%group.id, group=group.info())
+
+    api.handler 的典型写法:
+        
+        from core.logic import Group
+        def post(self, group_id):
+            me = self.get_current_user()
+            group = Group(group_id)
+            group.join(me)
+            return group.info()
+
+    Tips: 
+    views和api统一调用core.logic的方法来达到业务在website和api中保持一致
+    同时，常见的做法也会在 core.logic 再封装一层conext，每个session会对应实例化一个context
+    views和api通过context来调用所有的业务操作，在context的内部有用户登录信息、权限校验、统计等等。
+    如果并发提高，需要进行RPC、微服务等架构调整的话，context的设计可以作为一个服务的接口，只需要去重构context内部去作分布式的调用就好，views、api一点代码都不需要改.
 
 
     logic.logic 的典型内部写法：
