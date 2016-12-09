@@ -8,21 +8,20 @@ import tornado.httpserver
 import tornado.ioloop
 import tornado.options
 import tornado.web
-import torndb
 from urls import handlers
+from config import TEMPLATES_DIR, STATIC_DIR, DEBUG, SERVER_ADDRESS, SERVER_PORT
 from tornado.options import define, options
 
-define("port", default=8002, help="run on the given port", type=int)
+define("address", default=SERVER_ADDRESS, help="run on the given port", type=int)
+define("port", default=SERVER_PORT, help="run on the given port", type=int)
 
 class Application(tornado.web.Application):
     def __init__(self):
         settings = dict(
-            template_path=os.path.join(os.path.dirname(__file__), "templates"),
-            static_path=os.path.join(os.path.dirname(__file__), "static"),
-            debug=True,
+            template_path=os.path.join(os.path.dirname(__file__), TEMPLATES_DIR),
+            static_path=os.path.join(os.path.dirname(__file__), STATIC_DIR),
+            debug=DEBUG,
         )
-
-        self.db = torndb.Connection("localhost", "hi_group", user='root', password='root')
         tornado.web.Application.__init__(self, handlers, **settings)
 
 def main():

@@ -1,4 +1,4 @@
-tornado
-torndb
-mysql-python
-sqlalchemy
+tornado=4.4.2
+torndb=0.3
+mysql-python=1.2.5
+sqlalchemy=1.1
